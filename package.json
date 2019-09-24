@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "test": "ava --verbose"
+    "test": "ava --verbose",
+    "test:watch": "ava --verbose --watch"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

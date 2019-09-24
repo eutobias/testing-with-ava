@@ -40,10 +40,10 @@ const remove = (req, res) => {
   })
 }
 
-router.get('/fields', list)
-router.post('/fields', save)
-router.get('/fields/:id', view)
-router.put('/fields/:id', edit)
-router.delete('/fields/:id', remove)
+router.get('/', list)
+router.post('/', save)
+router.get('/:id', view)
+router.put('/:id', edit)
+router.delete('/:id', remove)
 
 module.exports = router;
