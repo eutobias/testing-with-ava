@@ -4,7 +4,8 @@ const list = (req, res) => {
   res.json({
     'path': '/fields',
     'method': 'get',
-    'status': 'ok'
+    'status': 'ok',
+    'result' : []
   })
 }
 
