@@ -9,7 +9,7 @@ test('Route get /', async t => {
   t.deepEqual(res.body, { status: 'on' })
 })
 
-test('Route get /fields', async t => {
+test('Route get /users', async t => {
   const res = await request.get('/api/v1/fields')
   t.deepEqual(res.body.result, [])
 })

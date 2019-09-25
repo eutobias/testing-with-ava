@@ -13,7 +13,7 @@ module.exports = {
       filename: './app.dev.sqlite3'
     }
   },
-  prod: {
+  production: {
     client: 'sqlite3',
     connection: {
       filename: './app.prod.sqlite3'

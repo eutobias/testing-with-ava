@@ -1,7 +1,7 @@
 const router = require('express').Router()
-const fields = require('../controllers/fields')
+const users = require('./users.route')
 
 router.get('/', (req, res) => res.send({ status: 'on' }))
-router.use('/fields', fields)
+router.use('/users', users)
 
 module.exports = router
