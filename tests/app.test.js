@@ -10,8 +10,8 @@ test('Route get /', async t => {
 })
 
 test('Route get /users', async t => {
-  const res = await request.get('/api/v1/fields')
-  t.deepEqual(res.body.result, [])
+  const res = await request.get('/api/v1/users')
+  t.is(typeof res.body, 'object')
 })
 
 test('Route get /fields/1', async t => {
