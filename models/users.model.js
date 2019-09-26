@@ -1,5 +1,4 @@
-const dbConfig = require('../knexfile')
-const knex = require('knex')(dbConfig.development)
+const model = require('./model')
 
 module.exports = {
   missingRequiredFields (data) {
@@ -14,12 +13,12 @@ module.exports = {
     let exists = []
 
     if (id) {
-      exists = await knex('users')
+      exists = await model('users')
         .select('id')
         .where({ email: email })
         .whereNot({ id: id })
     } else {
-      exists = await knex('users')
+      exists = await model('users')
         .select('id')
         .where({ email: email })
     }
@@ -28,7 +27,7 @@ module.exports = {
   },
 
   list () {
-    return knex('users').select()
+    return model('users').select()
   },
 
   async save (data) {
@@ -47,10 +46,10 @@ module.exports = {
       }
     }
 
-    return knex('users')
+    return model('users')
       .insert({ name: data.name, email: data.email })
       .then(result => {
-        return { status: 'ok' }
+        return { status: 'ok', message: `User "${data.name}" create sucessfully` }
       })
       .catch(() => {
         return {
@@ -61,7 +60,7 @@ module.exports = {
   },
 
   view (id) {
-    return knex('users')
+    return model('users')
       .select()
       .where({ id: id })
       .then(result => {
@@ -99,8 +98,12 @@ module.exports = {
       }
     }
 
-    return knex('users')
-      .update({ name: data.name, email: data.email, updated_at: knex.fn.now() })
+    return model('users')
+      .update({
+        name: data.name,
+        email: data.email,
+        updated_at: model.fn.now()
+      })
       .where({ id: id })
       .then(result => {
         console.log(result)
@@ -111,7 +114,7 @@ module.exports = {
           }
         }
 
-        return { status: 'ok' }
+        return { status: 'ok', message: `User "${data.name}" updated sucessfully` }
       })
       .catch(() => {
         return {
@@ -122,7 +125,7 @@ module.exports = {
   },
 
   async delete (id) {
-    return knex('users')
+    return model('users')
       .del()
       .where({ id: id })
       .then(result => {

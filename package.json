@@ -4,9 +4,9 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js",
-    "test": "ava --verbose",
+    "start": "NODE_ENV=production node src/index.js",
+    "dev": "NODE_ENV=development nodemon src/index.js",
+    "test": "NODE_ENV=test ava --verbose",
     "test:watch": "ava --verbose --watch"
   },
   "dependencies": {
