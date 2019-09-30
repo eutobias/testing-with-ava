@@ -281,6 +281,44 @@
   dependencies:
     arrify "^1.0.1"
 
+"@hapi/address@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@hapi/address/-/address-2.1.2.tgz#1c794cd6dbf2354d1eb1ef10e0303f573e1c7222"
+  integrity sha512-O4QDrx+JoGKZc6aN64L04vqa7e41tIiLU+OvKdcYaEMP97UttL0f9GIi9/0A4WAMx0uBd6SidDIhktZhgOcN8Q==
+
+"@hapi/formula@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@hapi/formula/-/formula-1.2.0.tgz#994649c7fea1a90b91a0a1e6d983523f680e10cd"
+  integrity sha512-UFbtbGPjstz0eWHb+ga/GM3Z9EzqKXFWIbSOFURU0A/Gku0Bky4bCk9/h//K2Xr3IrCfjFNhMm4jyZ5dbCewGA==
+
+"@hapi/hoek@8.x.x", "@hapi/hoek@^8.2.4":
+  version "8.2.5"
+  resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-8.2.5.tgz#b307d3f1aced22e05bd6a2403c302eaebb577da3"
+  integrity sha512-rmGFzok1zR3xZKd5m3ihWdqafXFxvPHoQ/78+AG5URKbEbJiwBBfRgzbu+07W5f3+07JRshw6QqGbVmCp8ntig==
+
+"@hapi/joi@^16.1.4":
+  version "16.1.4"
+  resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-16.1.4.tgz#b039fe474a0ab838c1a90620c53a208fcef75d99"
+  integrity sha512-m7ctezhxjob+dSpXnCNlgAj6rrEpdSsaWu3GWL3g1AybQCU36mlAo9IwGFJwIxD+oHgdO6mYyviYlaejX+qN6g==
+  dependencies:
+    "@hapi/address" "^2.1.2"
+    "@hapi/formula" "^1.2.0"
+    "@hapi/hoek" "^8.2.4"
+    "@hapi/pinpoint" "^1.0.2"
+    "@hapi/topo" "^3.1.3"
+
+"@hapi/pinpoint@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@hapi/pinpoint/-/pinpoint-1.0.2.tgz#025b7a36dbbf4d35bf1acd071c26b20ef41e0d13"
+  integrity sha512-dtXC/WkZBfC5vxscazuiJ6iq4j9oNx1SHknmIr8hofarpKUZKmlUVYVIhNVzIEgK5Wrc4GMHL5lZtt1uS2flmQ==
+
+"@hapi/topo@^3.1.3":
+  version "3.1.4"
+  resolved "https://registry.yarnpkg.com/@hapi/topo/-/topo-3.1.4.tgz#42e2fe36f593d90ad258a08b582be128c141c45d"
+  integrity sha512-aVWQTOI9wBD6zawmOr6f+tdEIxQC8JXfQVLTjgGe8YEStAWGn/GNNVTobKJhbWKveQj2RyYF3oYbO9SC8/eOCA==
+  dependencies:
+    "@hapi/hoek" "8.x.x"
+
 "@nodelib/fs.scandir@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.2.tgz#1f981cd5b83e85cfdeb386fc693d4baab392fa54"
@@ -301,6 +339,13 @@
   dependencies:
     "@nodelib/fs.scandir" "2.1.2"
     fastq "^1.6.0"
+
+"@phc/format@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@phc/format/-/format-0.5.0.tgz#a99d27a83d78b3100a191412adda04315e2e3aba"
+  integrity sha512-JWtZ5P1bfXU0bAtTzCpOLYHDXuxSVdtL/oqz4+xa97h8w9E5IlVN333wugXVFv8vZ1hbXObKQf1ptXmFFcMByg==
+  dependencies:
+    safe-buffer "^5.1.2"
 
 "@sindresorhus/is@^0.14.0":
   version "0.14.0"
@@ -454,6 +499,15 @@ are-we-there-yet@~1.1.2:
   dependencies:
     delegates "^1.0.0"
     readable-stream "^2.0.6"
+
+argon2@^0.24.1:
+  version "0.24.1"
+  resolved "https://registry.yarnpkg.com/argon2/-/argon2-0.24.1.tgz#3a925ae4483efc5e1013fe651fc036905a6e66d7"
+  integrity sha512-2S677iO18I+SQEUONkpvyagF9BJDYdiT82KqSMPQ2zP0oIYagVIPM0Y8T5pJ/4F4CrnN9PTCGA+ye1S0KupW3g==
+  dependencies:
+    "@phc/format" "^0.5.0"
+    node-addon-api "^1.7.1"
+    node-gyp-build "^4.1.0"
 
 argparse@^1.0.7:
   version "1.0.10"
@@ -3569,6 +3623,16 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+node-addon-api@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-1.7.1.tgz#cf813cd69bb8d9100f6bdca6755fc268f54ac492"
+  integrity sha512-2+DuKodWvwRTrCfKOeR24KIc5unKjOh8mz17NCzVnHWfjAdDqbfbjqh7gUT+BkXBRQM52+xCHciKWonJ3CbJMQ==
+
+node-gyp-build@^4.1.0:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/node-gyp-build/-/node-gyp-build-4.1.1.tgz#d7270b5d86717068d114cc57fff352f96d745feb"
+  integrity sha512-dSq1xmcPDKPZ2EED2S6zw/b9NKsqzXRE6dVr8TVQnI3FJOTteUMuqF3Qqs6LZg+mLGYJWqQzMbIjMtJqTv87nQ==
 
 node-pre-gyp@^0.11.0:
   version "0.11.0"

@@ -1,14 +1,23 @@
 const model = require('./model')
+const joi = require('@hapi/joi')
+
+const schema = joi
+  .object({
+    name: joi
+      .string()
+      .min(5)
+      .max(50)
+      .required(),
+    email: joi
+      .string()
+      .email()
+      .required(),
+    // password: joi.string().required(),
+    // repeat_password: joi.ref('password')
+  })
+  // .with('password', 'repeat_password')
 
 module.exports = {
-  missingRequiredFields (data) {
-    if (!data.name || !data.email) {
-      return true
-    }
-
-    return false
-  },
-
   async emailAlreadyExists (email, id = false) {
     let exists = []
 
@@ -26,36 +35,58 @@ module.exports = {
     return exists.length > 0
   },
 
-  list () {
-    return model('users').select()
-  },
-
-  async save (data) {
-    if (this.missingRequiredFields(data)) {
+  async invalidate (data, id = false) {
+    const validation = schema.validate(data)
+    if (validation.error) {
       return {
         status: 'error',
-        message: 'The fields name and email are required'
+        message: validation.error.message
       }
     }
 
-    const exists = await this.emailAlreadyExists(data.email)
+    const exists = await this.emailAlreadyExists(data.email, id)
     if (exists) {
       return {
         status: 'error',
-        message: 'This email is already registered'
+        message: 'This email already exists'
       }
+    }
+
+    return false
+  },
+
+  list () {
+    return model('users')
+      .select()
+      .then(data => [null, data])
+      .catch(err => [err, null])
+  },
+
+  async save (data) {
+    const invalidate = await this.invalidate(data)
+    if (invalidate) {
+      return [invalidate, null]
     }
 
     return model('users')
       .insert({ name: data.name, email: data.email })
       .then(result => {
-        return { status: 'ok', message: `User "${data.name}" create sucessfully` }
+        return [
+          null,
+          {
+            status: 'ok',
+            message: `User "${data.name}" create sucessfully`
+          }
+        ]
       })
       .catch(() => {
-        return {
-          status: 'error',
-          message: 'Database error while trying to create new user'
-        }
+        return [
+          {
+            status: 'error',
+            message: 'Database error while trying to create new user'
+          },
+          null
+        ]
       })
   },
 
@@ -65,37 +96,33 @@ module.exports = {
       .where({ id: id })
       .then(result => {
         if (result.length === 0) {
-          return {
-            status: 'error',
-            message: 'User not found'
-          }
+          return [
+            {
+              status: 'error',
+              message: 'User not found'
+            },
+            null
+          ]
         }
 
-        return result
+        return [null, result]
       })
       .catch(error => {
         console.log(error)
-        return {
-          status: 'error',
-          message: 'Database error while trying to create new user'
-        }
+        return [
+          {
+            status: 'error',
+            message: 'Database error while trying to create new user'
+          },
+          null
+        ]
       })
   },
 
   async update (id, data) {
-    if (this.missingRequiredFields(data)) {
-      return {
-        status: 'error',
-        message: 'The fields name and email are required'
-      }
-    }
-
-    const exists = await this.emailAlreadyExists(data.email, id)
-    if (exists) {
-      return {
-        status: 'error',
-        message: 'This email is already registered'
-      }
+    const invalidate = await this.invalidate(data)
+    if (invalidate) {
+      return [invalidate, null]
     }
 
     return model('users')
@@ -106,21 +133,32 @@ module.exports = {
       })
       .where({ id: id })
       .then(result => {
-        console.log(result)
         if (!result) {
-          return {
-            status: 'error',
-            message: 'User not found'
-          }
+          return [
+            {
+              status: 'error',
+              message: 'User not found'
+            },
+            null
+          ]
         }
 
-        return { status: 'ok', message: `User "${data.name}" updated sucessfully` }
+        return [
+          null,
+          {
+            status: 'ok',
+            message: `User "${data.name}" updated sucessfully`
+          }
+        ]
       })
       .catch(() => {
-        return {
-          status: 'error',
-          message: `Database error while trying to update user ${id}`
-        }
+        return [
+          {
+            status: 'error',
+            message: `Database error while trying to update user ${id}`
+          },
+          null
+        ]
       })
   },
 
@@ -130,19 +168,24 @@ module.exports = {
       .where({ id: id })
       .then(result => {
         if (!result) {
-          return {
-            status: 'error',
-            message: 'User not found'
-          }
+          return [
+            {
+              status: 'error',
+              message: 'User not found'
+            },
+            null
+          ]
         }
-        return { status: 'ok' }
+        return [null, { status: 'ok' }]
       })
       .catch(error => {
-        console.log(error)
-        return {
-          status: 'error',
-          message: 'Database error while trying to delete a user'
-        }
+        return [
+          {
+            status: 'error',
+            message: 'Database error while trying to delete a user'
+          },
+          null
+        ]
       })
   }
 }
